@@ -1,17 +1,50 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import  React from 'react'
+import ReactDOM from 'react-dom'
+import { useState } from 'react'
+import Content from './Content.js'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () => {
+  const [ good, setGood ] = useState(0)
+  const [ neutral, setNeutral ] = useState(0)
+  const [ bad, setBad ] = useState(0)
+  const [all, setAll ] = useState(0)
+  const [average, setAverage ] = useState(0)
+  const [positive, setPositive] = useState(0)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const handleClick = () => {
+    setGood(good+1)
+    setAll(all+1)
+    setAverage(average+0.1)
+    setPositive(((good+1)*100)/(all+1))
+  }
+  const onClick = () => {
+    setNeutral(neutral+1)
+    setAll(all+1)
+    setAverage(average+0.1)
+    setPositive(((neutral+1)*100)/(all+1))
+  }
+  const didClick = () => {
+    setBad(bad +1)
+    setAll(all+1)
+    setAverage(average+0.1)
+    setPositive(((bad+1)*100)/(all+1))
+  }
+ 
+  return (
+    <div>
+      <button onClick={handleClick}>good</button>
+      <button onClick={onClick}>neutral</button>
+      <button onClick={didClick}>bad</button>
+      <Content 
+      good = {good}
+      neutral = {neutral}
+      bad = {bad}
+      all = {all}
+      average = {average}
+      positive = {positive}
+      />
+      
+    </div>
+  )
+}
+ReactDOM.render(<App />,document.getElementById('root'))
